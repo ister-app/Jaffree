@@ -65,6 +65,20 @@ public class FFmpegResultFuture {
     }
 
     /**
+     * Requests ffmpeg process to pause.
+     */
+    public void pause() {
+        stopper.pause();
+    }
+
+    /**
+     * Requests ffmpeg process to resume.
+     */
+    public void resume() {
+        stopper.resume();
+    }
+
+    /**
      * Stops ffmpeg process.
      *
      * @param forcefully true to stop immediately

@@ -32,6 +32,16 @@ public interface Stopper {
     void forceStop();
 
     /**
+     * Pause ffmpeg/ffprobe.
+     */
+    void pause();
+
+    /**
+     * Resume ffmpeg/ffprobe.
+     */
+    void resume();
+
+    /**
      * Sets ffmpeg/ffprobe process to be stopped.
      *
      * @param process ffmpeg/ffprobe process

@@ -301,6 +301,33 @@ public class FFmpegTest {
     }
 
     @Test
+    public void testPauseAndResume() throws Exception {
+        Path tempDir = Files.createTempDirectory("jaffree");
+        Path outputPath = tempDir.resolve(Artifacts.VIDEO_MP4.getFileName());
+
+        FFmpeg ffmpeg = FFmpeg.atPath(Config.FFMPEG_BIN)
+                .addInput(UrlInput
+                        .fromPath(Artifacts.VIDEO_MP4)
+                        .setReadAtFrameRate(true)
+                )
+                .addOutput(UrlOutput.toPath(outputPath));
+
+        FFmpegResultFuture futureResult = ffmpeg.executeAsync();
+
+        Thread.sleep(2_000);
+
+        futureResult.pause();
+
+        Thread.sleep(2_000);
+
+        futureResult.resume();
+
+        Thread.sleep(3_000);
+
+        assertTrue(Files.exists(outputPath));
+    }
+
+    @Test
     public void testGraceAsyncStop() throws Exception {
         Path tempDir = Files.createTempDirectory("jaffree");
         Path outputPath = tempDir.resolve(Artifacts.VIDEO_MP4.getFileName());

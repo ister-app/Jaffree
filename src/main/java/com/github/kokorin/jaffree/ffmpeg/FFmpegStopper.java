@@ -48,6 +48,26 @@ public class FFmpegStopper implements Stopper {
         sendToStdIn("qq");
     }
 
+    @Override
+    public void pause() {
+        try {
+            LOGGER.debug("Pausing ffmpeg process");
+            new ProcessBuilder("kill", "-TSTP", Long.toString(process.pid())).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void resume() {
+        try {
+            LOGGER.debug("Resuming ffmpeg process");
+            new ProcessBuilder("kill", "-CONT", Long.toString(process.pid())).start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
